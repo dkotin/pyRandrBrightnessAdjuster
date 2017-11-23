@@ -70,13 +70,6 @@ class BrightnessScale:
             return False
         return True
 
-    def getActiveMonitor(self):
-        #Find display monitor
-        monitor = subprocess.check_output("xrandr -q | grep ' connected' | cut -d ' ' -f1", shell=True)
-        if(monitor != ""):
-            monitor = monitor.split('\n')[0]
-        return monitor
-
     def getActiveMonitors(self):
         #Find display monitor
         monitors = subprocess.check_output("xrandr -q | grep ' connected' | cut -d ' ' -f1", shell=True)
@@ -98,16 +91,6 @@ class BrightnessScale:
         else:
             currB = ""
 
-        return currB
-
-    def getCurrentBrightness(self):
-        #Find current brightness
-        currB = subprocess.check_output("xrandr --verbose | grep -i brightness | cut -f2 -d ' '", shell=True)
-        if(currB != ""):
-            currB = currB.split('\n')[0]
-            currB = int(float(currB) * 100)
-        else:
-            currB = ""
         return currB
 
 if __name__ == "__main__":

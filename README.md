@@ -18,4 +18,6 @@ Usage:
 2. make it executeable
 3. run
 
+P.S.: My first attempt to mess with Gtk and Python.
+
 
