@@ -12,4 +12,10 @@ Forked from: https://gist.github.com/ravikiranj/6034290
 
 Added multi-monitor support.
 
+Usage:
+
+1. download https://raw.githubusercontent.com/dkotin/pyRandrBrightnessAdjuster/master/br2.sh
+2. make it executeable
+3. run
+
 
