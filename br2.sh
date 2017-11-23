@@ -19,19 +19,22 @@ class BrightnessScale:
         window.set_border_width(10)
 
         grid = Gtk.Grid()
+        grid.row_sapacing = 1000;
         window.add(grid)
         sizer = Gtk.Label(label="                                                                                                        ");
         grid.attach(sizer, 1, 0, 1, 2);
 
         for k, monitor in enumerate(self.monitors):
-            grid.attach(Gtk.Label(label=monitor), 0, k+1, 1, 1);
-            scale = Gtk.HScale();
+            grid.attach(Gtk.Label(label=monitor), 0, k*2+1, 1, 1);
             scale = Gtk.HScale();
             scale.connect("value-changed", self.scale_moved, scale, k)
 
-            adjustment = Gtk.Adjustment(self.currBs[k], 20, 200, 1, 10, 0)
-            scale.set_adjustment(adjustment)
-            grid.attach(scale, 1, k+1, 1, 1);
+            if (self.currBs[k] != ''):
+                adjustment = Gtk.Adjustment(self.currBs[k], 20, 200, 1, 10, 0)
+                scale.set_adjustment(adjustment)
+                grid.attach(scale, 1, k*2+1, 1, 1);
+            else:
+                grid.attach(Gtk.Label(label=" - uncontrollable or switched off"), 1, k*2+1, 1, 1);
 
         # close Gtk thread on closing window
         window.connect("destroy", lambda w: Gtk.main_quit())
