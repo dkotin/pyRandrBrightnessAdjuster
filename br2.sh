@@ -14,27 +14,32 @@ class BrightnessScale:
         # initliaze and configure window 
         window = Gtk.Window()
         window.connect("destroy", lambda w: Gtk.main_quit())
-        window.set_title('pyRandr Brightness Adjuster          --by DrCat')
+        window.set_title('pyRandr Brightness Adjuster          -- by DrCat')
         window.set_position(Gtk.WindowPosition.CENTER)
-        window.set_border_width(10)
-
+        window.set_border_width(3)
+        frame = Gtk.Frame()
         grid = Gtk.Grid()
-        grid.row_sapacing = 1000;
-        window.add(grid)
-        sizer = Gtk.Label(label="                                                                                                        ");
-        grid.attach(sizer, 1, 0, 1, 2);
-
+        grid.row_sapacing = 1;
+        window.add(frame)
+        frame.add(grid)
+        sizer = Gtk.Label(label="                                                                                                                  ");
+        grid.attach(sizer, 2, 0, 1, 2);
         for k, monitor in enumerate(self.monitors):
-            grid.attach(Gtk.Label(label=monitor), 0, k*2+1, 1, 1);
-            scale = Gtk.HScale();
+            grid.attach(Gtk.Label(label=monitor), 0, k*2+1, 1, 1)
+            grid.attach(Gtk.Separator(orientation=Gtk.Orientation.VERTICAL), 1, k*2+1, 1, 1)
+            scale = Gtk.HScale()
             scale.connect("value-changed", self.scale_moved, scale, k)
 
             if (self.currBs[k] != ''):
                 adjustment = Gtk.Adjustment(self.currBs[k], 20, 200, 1, 10, 0)
                 scale.set_adjustment(adjustment)
-                grid.attach(scale, 1, k*2+1, 1, 1);
+                grid.attach(scale, 2, k*2+1, 2, 1)
             else:
-                grid.attach(Gtk.Label(label=" - uncontrollable or switched off"), 1, k*2+1, 1, 1);
+                grid.attach(Gtk.Label(label=" - uncontrollable or switched off"), 2, k*2+1, 2, 1)
+            if (k < len(self.monitors)-1):
+                grid.attach(Gtk.Separator(orientation=Gtk.Orientation.HORIZONTAL), 0, k*2+2, 1, 1)
+                grid.attach(Gtk.Separator(orientation=Gtk.Orientation.HORIZONTAL), 1, k*2+2, 1, 1)
+                grid.attach(Gtk.Separator(orientation=Gtk.Orientation.HORIZONTAL), 2, k*2+2, 1, 1)
 
         # close Gtk thread on closing window
         window.connect("destroy", lambda w: Gtk.main_quit())
