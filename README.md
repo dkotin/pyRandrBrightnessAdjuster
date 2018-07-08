@@ -20,4 +20,5 @@ Usage:
 
 P.S.: My first attempt to mess with Gtk and Python.
 
+P.P.S.: You may need python-gi package installed so do so with ```sudo apt-get install python-gi```
 
